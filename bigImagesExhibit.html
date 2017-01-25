@@ -1,0 +1,146 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+  <head>
+    <title></title>
+    <script language="javascript">
+        if (document.images) {
+            var aImgSrc = BuildImageDetails();
+            
+            // load all non-empty strings images
+            for (i=0;i<(aImgSrc.length - 1);i++) {
+                if (aImgSrc[i]!="") {
+                    eval("var img" + i + " = new Image(); " +
+                        "img" + i + ".src = \"images/" + aImgSrc[i][0] + "\";");
+                }
+            }
+        }
+        
+        function BuildImageDetails(){
+            var aImgSrc = new Array(3);
+            
+            aImgSrc[0] = new Array("", "");
+            
+            aImgSrc[1] = new Array("promo-front.jpg", "landscape");
+            aImgSrc[2] = new Array("promo-back.jpg",  "landscape");
+            
+            return aImgSrc;
+        }
+        
+        function OnLoad(){
+            if (document.images) {
+                // load the images based on the querystring si value
+                var query = window.location.search.substring(1);
+                var pairs = query.split("&");
+                var imagesrc;
+                
+                for (var i=0;i<pairs.length;i++)
+                {
+                      var pos = pairs[i].indexOf('=');
+                      if (pos >= 0)
+                      {
+                          var argname = pairs[i].substring(0,pos);
+                          var value = pairs[i].substring(pos+1);
+                          if ((argname == 'si') && (value != "")) {
+                              
+                              document.images.imgLargeImage.src = "images/" + aImgSrc[value][0];
+                              document.images.imgLargeImage.width = GetWidth(aImgSrc[value][1]);
+                              
+                              SetNextAndPrevious(value);
+                              break;
+                          }
+                      }
+                }
+            }
+        }
+        
+        function GetWidth(imgType) {
+            var iWidth;
+            switch (imgType) {
+                case "landscape":
+                    iWidth = "400";
+                    break;
+                case "portrait":
+                    iWidth = "600";
+                    break;
+                case "square":
+                    iWidth = "796";
+                    break;
+            }
+            return iWidth;
+        }
+        
+        function SetNextAndPrevious(value) {
+            if (value == 1) {
+                document.anchors[1].name = value;
+                value++;
+                document.anchors[0].name = value;
+            } else if (value==22) {
+                document.anchors[0].name = value;
+                value--;
+                document.anchors[1].name = value;
+            } else {
+                var tmpValue = value;
+                tmpValue++;
+                document.anchors[0].name = tmpValue++;
+                value--;
+                document.anchors[1].name = value;
+            }
+        }
+        
+        function Next() {
+            window.location = "bigImages.html?si=" + document.anchors[0].name;
+        }
+        
+        function Previous() {
+            window.location = "bigImages.html?si=" + document.anchors[1].name;
+        }
+        
+    </script>
+  </head>
+  <body onload="OnLoad()" bgcolor="#999990">
+    <table border="0" align="left" height="768" width="1024" cellpadding="0" cellspacing="0">
+      <tr>
+        <td valign="top">
+          <table border="0" align="left" height="100%" width="54">
+            <tr>
+              <td height="50" width="50" valign="top">
+                <a href="#" 
+                  name="ahrefNext" 
+                  onclick="Next();return false;">
+                    <img src="images/arrow-forward.jpg" height="50" width="50" border="0">
+                  </a>
+              </td>
+            </tr>
+            
+            <tr>
+              <td height="50" width="50" valign="top">
+                <a href="#" 
+                  name="ahrefPrevious" 
+                  onclick="Previous();return false;">
+                    <img src="images/arrow-back.jpg" height="50" width="50" border="0">
+                  </a>
+              </td>
+            </tr>
+            
+            <tr valign="bottom">
+              <td valign="bottom" align="center" width="966">
+                <img src="images/eyetonewht.jpg" 
+                     height="149" 
+                     width="40" 
+                     border="0" 
+                     id="imgEyeTone" 
+                     name="imgEyeTone" />
+              </td>
+            </tr>
+          </table>
+        </td>
+        
+        <td>
+          <div align="right">
+            <img src="images/spacer.gif" height="354" id="imgLargeImage" name="imgLargeImage" border="0" />
+          </div>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

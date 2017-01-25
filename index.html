@@ -1,0 +1,39 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+  <head>
+    <title></title>
+    <script language="javascript">
+      
+      var imgEyeTone = new Image();
+      imgEyeTone.src = "images/eyetonewhite.jpg";
+      
+      
+      function RollOver() {
+          if (document.images) {
+              document.images.imgEyeTone.src = "images/whteyetone.jpg";
+          }
+      }
+      
+      function RollOut() {
+          if (document.images) {
+              document.images.imgEyeTone.src = "images/eyetonewhite.jpg";
+          }
+      }
+    </script>
+  </head>
+  <body bgColor="#999990">
+    <table border="0" width="800" height="600" align="left">
+      <tr valign="middle">
+        <td align="center">
+          <a href="home.html" onmouseover="RollOver(); return true;" onmouseout="RollOut(); return true;">
+            <img id="imgEyeTone" name="imgEyeTone" 
+              src="images/eyetonewhite.jpg"
+              height="54" 
+              width="200" 
+              border="0" />
+          </a>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

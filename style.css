@@ -1,0 +1,6 @@
+a {font-family:courier;}
+a.plain:hover{color:white;}
+a.plain { text-decoration: none; color:black; }
+
+a.selected:hover{color:Black;}
+a.selected{text-decoration: none; color:white; }
